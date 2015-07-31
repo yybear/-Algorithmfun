@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	GoogleEq()
+	DumpWater()
 }
