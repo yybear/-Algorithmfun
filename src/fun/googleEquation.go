@@ -1,3 +1,4 @@
+// google 方程式
 package fun
 
 import (
@@ -5,8 +6,6 @@ import (
 	"strconv"
 	"strings"
 )
-
-// google 方程式
 
 type tagCharItem struct {
 	c       byte

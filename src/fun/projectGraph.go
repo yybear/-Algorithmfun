@@ -34,15 +34,12 @@ func enQueue(nodeQueue *list.List, i int, startTime int) {
 	insert := 0
 
 	nodeItem := nodeQueueItem{i, startTime}
-
-	em := nodeQueue.Front()
-	for em != nil {
+	
+	for em := nodeQueue.Front(); em != nil; em = em.Next() {
 		if em.Value.(nodeQueueItem).sTime > startTime {
 			nodeQueue.InsertBefore(nodeItem, em)
 			insert = 1
 			break
-		} else {
-			em = em.Next()
 		}
 	}
 	if insert == 0 {

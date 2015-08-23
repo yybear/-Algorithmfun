@@ -67,6 +67,7 @@ func printResult(queue *list.List) {
 	fmt.Println("Find result :")
 	size := queue.Len()
 	bs := queue.Front()
+
 	for i := 0; i < size; i++ {
 		if bs != nil {
 			bs.Value.(bucketState).printStates()

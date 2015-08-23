@@ -55,7 +55,7 @@ func GaleShapley() {
 	girls = make([]partner, 3)
 	boys[0] = partner{"boy1", 0, -1, COUNT, []int{0, 1, 2}}
 	boys[1] = partner{"boy2", 0, -1, COUNT, []int{1, 0, 2}}
-	boys[2] = partner{"boy3", 0, -1, COUNT, []int{1, 0, 2}}
+	boys[2] = partner{"boy3", 0, -1, COUNT, []int{0, 2, 1}}
 	
 	girls[0] = partner{"girl1", 0, -1, COUNT, []int{1, 0, 2}}
 	girls[1] = partner{"girl2", 0, -1, COUNT, []int{1, 2, 0}}
