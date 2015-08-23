@@ -5,8 +5,9 @@ import (
 	"fmt"
 )
 
-// 项目管理图的拓扑排序
+// 项目管理图的拓扑排序，使用顶点表示活动网
 
+// 活动顶点
 type activityNode struct {
 	name         string
 	inCount      int   // 活动的前驱节点个数
@@ -31,20 +32,17 @@ func enQueue(nodeQueue *list.List, i int, startTime int) {
 	// 根据startTime 排序插入
 	fmt.Printf("push index %d\n", i)
 	insert := 0
-	size := nodeQueue.Len()
-	em := nodeQueue.Front()
-	
+
 	nodeItem := nodeQueueItem{i, startTime}
 
-	for i := 0; i < size; i++ {
-		if em != nil {
-			if em.Value.(nodeQueueItem).sTime > startTime {
-				nodeQueue.InsertBefore(nodeItem, em)
-				insert = 1
-				break
-			} else {
-				em = em.Next()
-			}
+	em := nodeQueue.Front()
+	for em != nil {
+		if em.Value.(nodeQueueItem).sTime > startTime {
+			nodeQueue.InsertBefore(nodeItem, em)
+			insert = 1
+			break
+		} else {
+			em = em.Next()
 		}
 	}
 	if insert == 0 {
@@ -77,6 +75,7 @@ func topologicalSorting(graph activityGraph, sortedNodes *list.List) bool {
 		sortedNodes.PushBack(graph.node[item.index].name)
 		// 遍历节点node的所有邻接点，将前驱减一
 		for _, nodeIndex := range graph.node[item.index].adjacentNode {
+			
 			graph.node[nodeIndex].inCount--
 			fmt.Printf("node %s, index %d, incount %d\n", graph.node[nodeIndex].name, nodeIndex, graph.node[nodeIndex].inCount)
 			if graph.node[nodeIndex].inCount == 0 {
@@ -85,19 +84,16 @@ func topologicalSorting(graph activityGraph, sortedNodes *list.List) bool {
 		}
 	}
 	
-	return graph.count == nodeQueue.Len()
+	return graph.count == sortedNodes.Len()
 }
 
 func printGraphResult(queue *list.List) {
 	fmt.Println("Find result :")
-	size := queue.Len()
 	bs := queue.Front()
 
-	for i := 0; i < size; i++ {
-		if bs != nil {
-			fmt.Printf(",%s", bs.Value.(string))
-			bs = bs.Next()
-		}
+	for bs != nil {
+		fmt.Printf(",%s", bs.Value.(string))
+		bs = bs.Next()
 	}
 }
 
