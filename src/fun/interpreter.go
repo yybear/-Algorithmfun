@@ -10,14 +10,14 @@ import (
 // 简单运算解析器
 
 type token struct {
-	flag string
-	value int
+	flag string  // 标识符类型  integer plus 等
+	value int    // 值 操作符使用负数代替
 }
 
 type interpreter struct {
-	text string
-	pos int
-	num string
+	text string  // 输入的表达式
+	pos int      // 解析过程中保存的索引
+	num string   // 解析过程中保存的数字字符串
 }
 
 func (inter *interpreter) getNextToken() token {
@@ -83,6 +83,7 @@ func (inter interpreter) expr() int {
 	
 	op := inter.getNextToken()
 	
+	// 循环支持多数操作
 	for op.flag == "plus" || op.flag == "cut" || op.flag == "multiply" || op.flag == "divide" {
 		inter.eat("op", op)
 		fmt.Printf("op is %s value is %d\n", op.flag, op.value)
